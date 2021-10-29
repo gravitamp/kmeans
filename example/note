@@ -1,0 +1,31 @@
+Based on
+"R. He, W. Xu, J. Sun and B. Zu, "Balanced K-Means Algorithm for Partitioning Areas in Large-Scale 
+Vehicle Routing Problem," 2009 Third International Symposium on Intelligent Information Technology 
+Application, 2009, pp. 87-90, doi: 10.1109/IITA.2009.307."
+
+idea: sort neighbour distance first
+
+idea: tiap iterasi, 1 kali pindah
+
+Initialization:
+
+1. Compute the desired cluster size, n/k.
+2. Initialize means, preferably with k-means++
+3. Order points by the distance to their nearest cluster minus distance to the farthest cluster (= biggest benefit of best over worst assignment)
+4. Assign points to their preferred cluster until this cluster is full, then resort remaining objects, without taking the full cluster into account anymore
+
+Iteration:
+
+1. Compute current cluster means
+2. For each object, compute the distances to the cluster means
+3. Sort elements based on the delta of the current assignment and the best possible alternate assignment.
+4. For each element by priority:
+    1. For each other cluster, by element gain, unless already moved:
+        1. If there is an element wanting to leave the other cluster and this swap yields and improvement, swap the two elements
+        2. If the element can be moved without violating size constraints, move it
+    2. If the element was not changed, add to outgoing transfer list.
+5. If no more transfers were done (or max iteration threshold was reached), terminate
+
+Convergence can be proven the same way as with k-means: any transfer must decrease variance (and would also happen in k-means).
+
+idea: use minflowcost
