@@ -63,11 +63,8 @@ func (m Kmeans) Partition(dataset Observations, k int, seed int64) (Clusters, er
 		changes = 0
 		cc.Reset()
 
-		// HERE
-
 		for p, point := range dataset {
 			ci := cc.Nearest(point)
-			//HERE!!!
 
 			cc[ci].Append(point)
 			if points[p] != ci {
@@ -101,7 +98,6 @@ func (m Kmeans) Partition(dataset Observations, k int, seed int64) (Clusters, er
 			}
 		}
 
-		//HERE
 		if changes > 0 { //&& (isi cc<min && >max)
 			cc.Recenter()
 		}
